@@ -1,0 +1,9 @@
+{
+    "ams_app_name": "Amason",
+    "ams_path": "/usr/local/spark/resources/amason.csv",
+    "diz_app_name": "Dizney",
+    "diz_path": "/usr/local/spark/resources/dizney.csv",
+    "log_level": "INFO",
+    "ntf_app_name": "Netflics",
+    "ntf_path": "/usr/local/spark/resources/netflics.csv"
+}
