@@ -10,31 +10,29 @@ It gives you an **Apache Airflow** configured with _LocalExecutor_ and **Apache 
 - [Additional resources](#additional-resources)
 
 ## <a name="project-overview"></a> Project overview
-Apache Airflow version ```2.3``` 
-with Postgres version ```13``` 
+Apache Airflow version ```2.3```
+with Postgres version ```13```
 
-and Apache Spark version ```3.1.2``` 
-with Hadoop version ```3.2``` 
+and Apache Spark version ```3.1.2```
+with Hadoop version ```3.2```
 ### Apache Airflow
-Application |Description  
+Application |Description
 --|--
-Postgres | Postgres database for Airflow metadata.
-Airflow-init  |  The initialization service.
-Airflow-scheduler|  The scheduler monitors all tasks and DAGs
-Airflow-triggerer|  The triggerer triggers the task instances once their dependencies are complete  |  
+Postgres | Postgres database for Airflow metadata
+Airflow-init  |  The initialization service
 Airflow-worker|  The worker that executes the tasks given by the scheduler
-Airflow-cli| Airflow command line interface  |  
+Airflow-scheduler|  The scheduler monitors all tasks and DAGs
 Airflow-webserver|  The webserver. Available at http://localhost:8080
 
 <p align="center"><img src="docs/images/Airflow Architecture.png"></p>
 
 ### Apache Spark
-Application |Description  
+Application |Description
 --|--
 Spark  | Spark Master node. Available at http://localhost:8181
-Spark-worker-1  | Spark Worker node with 4 core and 4 gigabyte of memory (can be configured manually in docker-compose.yml) 
-Spark-worker-2  | Spark Worker node with 4 core and 4 gigabyte of memory (can be configured)
-Spark-worker-3  | Spark Worker node with 4 core and 4 gigabyte of memory (can be configured)
+Spark-worker-1  | Spark Worker node with 4 core and 4 gigabyte of memory (can be configured manually in docker-compose.yml)
+Spark-worker-2  | Spark Worker node with 4 core and 4 gigabyte of memory (can be configured manually in docker-compose.yml)
+Spark-worker-3  | Spark Worker node with 4 core and 4 gigabyte of memory (can be configured manually in docker-compose.yml)
 
 <p align="center"><img src="docs/images/Project Architecture.png"></p>
 
@@ -49,7 +47,7 @@ Spark-worker-3  | Spark Worker node with 4 core and 4 gigabyte of memory (can be
 ### Run containers
 Inside the `AirflowSpark/docker/`
 
-    docker compose up -d 
+    docker compose up -d
 
 
 ### Check the access
@@ -57,23 +55,23 @@ Inside the `AirflowSpark/docker/`
    - **login**: airflow
    - **password**: airflow
  - [Spark](http://localhost:8181)
- 
+
 ## <a name="dag-example"></a> Dag example
-There is a simple spark job written in Scala. 
-Jar file is already created in ```docker/Volume/spark/app```, 
+There is a simple spark job written in Scala.
+Jar file is already created in ```docker/Volume/spark/app```,
 but you also can check the [Spark Application](spark%20application).
 
-Datasets for this example which you can find in ```docker/Volume/spark/resources``` 
-can also be downloaded from www.kaggle.com 
-([link1](https://www.kaggle.com/datasets/shivamb/netflix-shows), 
-[link2](https://www.kaggle.com/datasets/shivamb/disney-movies-and-tv-shows), 
+Datasets for this example which you can find in ```docker/Volume/spark/resources```
+can also be downloaded from www.kaggle.com
+([link1](https://www.kaggle.com/datasets/shivamb/netflix-shows),
+[link2](https://www.kaggle.com/datasets/shivamb/disney-movies-and-tv-shows),
 [link3](https://www.kaggle.com/datasets/shivamb/amazon-prime-movies-and-tv-shows))
 
-1. Go to [Airflow Web UI](http://localhost:8080). 
+1. Go to [Airflow Web UI](http://localhost:8080).
 2. Configure Spark Connection.
 
-   2.1 Go to [Connection](http://localhost:8080/connection/list/) 
-   
+   2.1 Go to [Connection](http://localhost:8080/connection/list/)
+
    2.2 Add a new record like in the image below
 
 <p align="center"><img src="docs/images/Spark connection.jpg"></p>
@@ -81,7 +79,7 @@ can also be downloaded from www.kaggle.com
 3. Import variables.
 
     3.1 Go to [Variables](http://localhost:8080/variable/list/)
-  
+
     3.2 Import variables from `docker/variables.json`
 
 4. Run **simple_dag**

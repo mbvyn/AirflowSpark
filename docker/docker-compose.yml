@@ -100,23 +100,6 @@ services:
       airflow-init:
         condition: service_completed_successfully
 
-  airflow-triggerer:
-    <<: *airflow-common
-    command: triggerer
-    container_name: airflow-triggerer
-    networks:
-      - default_network
-    healthcheck:
-      test: [ "CMD-SHELL", 'airflow jobs check --job-type TriggererJob --hostname "$${HOSTNAME}"' ]
-      interval: 100s
-      timeout: 100s
-      retries: 5
-    restart: always
-    depends_on:
-      <<: *airflow-common-depends-on
-      airflow-init:
-        condition: service_completed_successfully
-
   # Airflow-init is a service that runs the Airflow init script.
   airflow-init:
     <<: *airflow-common
@@ -194,21 +177,6 @@ services:
       _AIRFLOW_WWW_USER_PASSWORD: ${_AIRFLOW_WWW_USER_PASSWORD:-airflow}
     user: "0:0"
 
-  airflow-cli:
-    <<: *airflow-common
-    container_name: airflow-cli
-    profiles:
-      - debug
-    networks:
-      - default_network
-    environment:
-      <<: *airflow-common-env
-      CONNECTION_CHECK_MAX_COUNT: "0"
-    command:
-      - bash
-      - -c
-      - airflow
-
   # Spark master with 3 workers
   # Spark UI is available at http://localhost:8181
   spark:
@@ -242,8 +210,8 @@ services:
     environment:
       - SPARK_MODE=worker
       - SPARK_MASTER_URL=spark://spark:7077
-      - SPARK_WORKER_MEMORY=4G
-      - SPARK_WORKER_CORES=4
+      - SPARK_WORKER_MEMORY=4G # Worker Memory can be increased or decreased depending on the amount of data you want to process
+      - SPARK_WORKER_CORES=4 # Number of cores per worker can also be increased or decreased
       - SPARK_RPC_AUTHENTICATION_ENABLED=no
       - SPARK_RPC_ENCRYPTION_ENABLED=no
       - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no

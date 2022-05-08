@@ -35,7 +35,6 @@ ENV PATH $PATH:/usr/local/spark/bin
 USER airflow
 
 RUN airflow db init
-RUN airflow users create -u airflow -p airflow -f admin -l admin -r Admin -e admin@admin.com
 RUN pip install apache-airflow-providers-apache-spark
 
 COPY ./airflow_start.sh /usr/bin/airflow_start.sh
